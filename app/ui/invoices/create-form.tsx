@@ -1,3 +1,5 @@
+'use client'
+
 import { CustomerField } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
@@ -10,8 +12,17 @@ import { Button } from '@/app/ui/button';
 import { createInvoice } from '@/app/lib/actions';
 
 export default function Form({ customers }: { customers: CustomerField[] }) {
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+    const payload = {
+      customerId: event.target.customerId.value,
+      amount: event.target.amount.value,
+      status: event.target.status.value
+    }
+    await createInvoice(payload)
+  }
   return (
-    <form action={createInvoice}>
+    <form onSubmit={handleSubmit}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
         <div className="mb-4">
