@@ -1,5 +1,3 @@
-'use client';
-
 import { CustomerField, InvoiceForm } from '@/app/lib/definitions';
 import {
   CheckIcon,
@@ -18,18 +16,10 @@ export default function EditInvoiceForm({
   invoice: InvoiceForm;
   customers: CustomerField[];
 }) {
-  const handleSubmit = async (event: any) => {
-    event.preventDefault();
-    const payload = {
-      customerId: event.target.customerId.value,
-      amount: event.target.amount.value,
-      status: event.target.status.value
-    }
-    await updateInvoice(invoice.id, payload)
-  }
+  const updateInvoiceWithId = updateInvoice.bind(null, invoice.id)
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form action={updateInvoiceWithId}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
         <div className="mb-4">
